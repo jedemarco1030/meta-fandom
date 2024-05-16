@@ -20,8 +20,6 @@ interface PokemonSearchProps {
 const Pokemon = ({ pokemonList }: PokemonSearchProps) => {
   const [searchText, setSearchText] = useState("");
 
-  console.log(pokemonList);
-
   const searchFilter = (pokemonArray: any) => {
     return pokemonArray.filter((pokemon: any) =>
       pokemon.name.toLowerCase().includes(searchText.toLowerCase()),
