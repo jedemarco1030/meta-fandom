@@ -1,4 +1,4 @@
-const POKEMON_API = "https://pokeapi.co/api/v2/";
+const POKEMON_API = 'https://pokeapi.co/api/v2/';
 
 export async function getPokemonList(
   limit: number,
@@ -8,10 +8,10 @@ export async function getPokemonList(
     const url = `${POKEMON_API}pokemon?limit=${limit}&offset=${offset}`;
     const response = await fetch(url);
     const data = await response.json();
-    if (!response.ok) throw new Error("Failed to fetch pokemon list");
+    if (!response.ok) throw new Error('Failed to fetch pokemon list');
     return data.results;
   } catch (error) {
-    console.error("Failed to fetch Pokemon list:", error);
+    console.error('Failed to fetch Pokemon list:', error);
     return [];
   }
 }

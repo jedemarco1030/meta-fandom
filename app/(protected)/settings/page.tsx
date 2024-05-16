@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { UserRole } from "@prisma/client";
-import { useSession } from "next-auth/react";
-import { useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import type * as z from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { UserRole } from '@prisma/client';
+import { useSession } from 'next-auth/react';
+import { useState, useTransition } from 'react';
+import { useForm } from 'react-hook-form';
+import type * as z from 'zod';
 
-import { settings } from "@/actions/settings";
-import { FormError } from "@/components/form-error";
-import { FormSuccess } from "@/components/form-success";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { settings } from '@/actions/settings';
+import { FormError } from '@/components/form-error';
+import { FormSuccess } from '@/components/form-success';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -20,18 +20,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { SettingsSchema } from "@/schemas";
+} from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import { SettingsSchema } from '@/schemas';
 
 const SettingsPage = () => {
   const user = useCurrentUser();
@@ -66,7 +66,7 @@ const SettingsPage = () => {
             setSuccess(data.success);
           }
         })
-        .catch(() => setError("Something went wrong!"));
+        .catch(() => setError('Something went wrong!'));
     });
   };
 

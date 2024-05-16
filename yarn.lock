@@ -8168,15 +8168,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"husky@npm:^9.0.11":
-  version: 9.0.11
-  resolution: "husky@npm:9.0.11"
-  bin:
-    husky: bin.mjs
-  checksum: 10c0/2c787dcf74a837fc9a4fea7da907509d4bd9a289f4ea10ecc9d86279e4d4542b0f5f6443a619bccae19e265f2677172cc2b86aae5c932a35a330cc227d914605
-  languageName: node
-  linkType: hard
-
 "hyperlinker@npm:^1.0.0":
   version: 1.0.0
   resolution: "hyperlinker@npm:1.0.0"
@@ -10029,7 +10020,6 @@ __metadata:
     eslint-plugin-testing-library: "npm:^6.2.2"
     eslint-plugin-unused-imports: "npm:^3.2.0"
     graphql: "npm:^16.8.1"
-    husky: "npm:^9.0.11"
     jest: "npm:^29.7.0"
     lint-staged: "npm:^15.2.2"
     lucide-react: "npm:^0.378.0"

@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import React from "react";
+import Link from 'next/link';
+import React from 'react';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from '@/components/ui/button';
+import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface PokemonCardProps {
   name: string;

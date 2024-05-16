@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import PokemonCard from "@/components/pokemon/pokemon-card";
+import PokemonCard from '@/components/pokemon/pokemon-card';
 import {
   Card,
   CardContent,
@@ -10,15 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 
 interface PokemonSearchProps {
   pokemonList: any;
 }
 
 const Pokemon = ({ pokemonList }: PokemonSearchProps) => {
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState('');
 
   const searchFilter = (pokemonArray: any) => {
     return pokemonArray.filter((pokemon: any) =>

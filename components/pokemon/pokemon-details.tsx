@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 
 import {
   Card,
@@ -10,13 +10,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { getPokemonDetails } from "@/lib/poke-api";
+} from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { getPokemonDetails } from '@/lib/poke-api';
 
 const PokemonDetails = ({ pokemonName }: { pokemonName: string }) => {
   const [pokemon, setPokemon] = useState<any>(null);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     async function fetchPokemon() {
@@ -24,8 +24,8 @@ const PokemonDetails = ({ pokemonName }: { pokemonName: string }) => {
         const data = await getPokemonDetails(pokemonName);
         setPokemon(data);
       } catch (err) {
-        console.error("Failed to fetch pokemon details:", err);
-        setError("Failed to load pokemon data.");
+        console.error('Failed to fetch pokemon details:', err);
+        setError('Failed to load pokemon data.');
       }
     }
 
@@ -46,7 +46,7 @@ const PokemonDetails = ({ pokemonName }: { pokemonName: string }) => {
             <p>Height: {pokemon.height}</p>
             <p>Weight: {pokemon.weight}</p>
             <p>
-              Types:{" "}
+              Types:{' '}
               {pokemon.types?.length > 0
                 ? pokemon.types
                     .map(
@@ -54,15 +54,15 @@ const PokemonDetails = ({ pokemonName }: { pokemonName: string }) => {
                         t.type.name.charAt(0).toUpperCase() +
                         t.type.name.slice(1),
                     )
-                    .join(", ")
-                : "N/A"}
+                    .join(', ')
+                : 'N/A'}
             </p>
           </CardDescription>
         </CardHeader>
         <CardContent className="relative flex-1 p-4">
-          {pokemon.sprites.other["official-artwork"].front_default && (
+          {pokemon.sprites.other['official-artwork'].front_default && (
             <Image
-              src={pokemon.sprites.other["official-artwork"].front_default}
+              src={pokemon.sprites.other['official-artwork'].front_default}
               alt={`${pokemon.name} cover image`}
               height={300}
               width={300}
@@ -78,11 +78,11 @@ const PokemonDetails = ({ pokemonName }: { pokemonName: string }) => {
             return (
               <div
                 className="flex items-stretch"
-                style={{ width: "500px" }}
+                style={{ width: '500px' }}
                 key={statName}
               >
                 <h3 className="w-2/4 p-3">
-                  {statName.charAt(0).toUpperCase() + statName.slice(1)}:{" "}
+                  {statName.charAt(0).toUpperCase() + statName.slice(1)}:{' '}
                   {statValue}
                 </h3>
                 <Progress className="m-auto w-2/4" value={statValue} />

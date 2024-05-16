@@ -1,4 +1,4 @@
-const RAWG_API = "https://api.rawg.io/api/";
+const RAWG_API = 'https://api.rawg.io/api/';
 
 interface APIResponse<T> {
   count: number;
@@ -91,10 +91,10 @@ export async function getVideoGamesList(
     const url = `${RAWG_API}games?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}&search=${search}&page_size=10&page=${page}`;
     const response = await fetch(url);
     const data: APIResponse<Game> = await response.json();
-    if (!response.ok) throw new Error("Failed to fetch games list");
+    if (!response.ok) throw new Error('Failed to fetch games list');
     return data.results;
   } catch (error) {
-    console.error("Error fetching games list:", error);
+    console.error('Error fetching games list:', error);
     return [];
   }
 }
@@ -110,7 +110,7 @@ export async function getVideoGameDetails(
       throw new Error(`Failed to fetch details for game ID: ${id}`);
     return data;
   } catch (error) {
-    console.error("Error fetching game details:", error);
+    console.error('Error fetching game details:', error);
     return null;
   }
 }

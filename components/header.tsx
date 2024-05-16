@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { ExitIcon } from "@radix-ui/react-icons";
-import { Menu, SquareLibrary } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { FaUser } from "react-icons/fa";
+import { ExitIcon } from '@radix-ui/react-icons';
+import { Menu, SquareLibrary } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import { FaUser } from 'react-icons/fa';
 
-import { LogoutButton } from "@/components/auth/logout-button";
-import { ThemeModeToggle } from "@/components/theme-mode-toggle";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
+import { LogoutButton } from '@/components/auth/logout-button';
+import { ThemeModeToggle } from '@/components/theme-mode-toggle';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,9 +18,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useCurrentUser } from "@/hooks/use-current-user";
+} from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 export const Header = () => {
   const { data: session } = useSession();
@@ -40,7 +40,7 @@ export const Header = () => {
           </Link>
           <Link
             href="/video-games"
-            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/video-games" ? "text-foreground" : "text-muted-foreground"}`}
+            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/video-games' ? 'text-foreground' : 'text-muted-foreground'}`}
           >
             Video Games
           </Link>
@@ -58,7 +58,7 @@ export const Header = () => {
           {/* </Link> */}
           <Link
             href="/pokemon"
-            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/pokemon" ? "text-foreground" : "text-muted-foreground"}`}
+            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/pokemon' ? 'text-foreground' : 'text-muted-foreground'}`}
           >
             Pokemon
           </Link>
@@ -85,7 +85,7 @@ export const Header = () => {
               </Link>
               <Link
                 href="/video-games/video-games"
-                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/video-games" ? "text-foreground" : "text-muted-foreground"}`}
+                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/video-games' ? 'text-foreground' : 'text-muted-foreground'}`}
               >
                 Video Games
               </Link>
@@ -103,7 +103,7 @@ export const Header = () => {
               {/* </Link> */}
               <Link
                 href="/pokemon"
-                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/pokemon" ? "text-foreground" : "text-muted-foreground"}`}
+                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/pokemon' ? 'text-foreground' : 'text-muted-foreground'}`}
               >
                 Pokemon
               </Link>
@@ -124,7 +124,7 @@ export const Header = () => {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src={user?.image || ""} />
+                <AvatarImage src={user?.image || ''} />
                 <AvatarFallback className="border">
                   <FaUser className="text-white" />
                 </AvatarFallback>

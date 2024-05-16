@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import DOMPurify from "dompurify";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import DOMPurify from 'dompurify';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
 import {
   Card,
@@ -12,38 +12,38 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { getVideoGameDetails } from "@/lib/rawg-api";
+} from '@/components/ui/card';
+import { getVideoGameDetails } from '@/lib/rawg-api';
 
 const formatDate = (dateString: string): string => {
   const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   };
-  return new Date(dateString).toLocaleDateString("en-US", options);
+  return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
 const VideoGameDetails = ({ gameId }: { gameId: string }) => {
   const [videoGame, setVideoGame] = useState<any>(null);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>('');
 
   useEffect(() => {
     async function fetchVideoGame() {
       try {
         const data = await getVideoGameDetails(gameId);
         if (data) {
-          data.description = DOMPurify.sanitize(data.description || "");
+          data.description = DOMPurify.sanitize(data.description || '');
           if (data.released) {
             formatDate(data.released);
           }
           setVideoGame(data);
         } else {
-          setError("Failed to load game data.");
+          setError('Failed to load game data.');
         }
       } catch (err) {
-        console.error("Failed to fetch video game details:", err);
-        setError("Failed to load game data.");
+        console.error('Failed to fetch video game details:', err);
+        setError('Failed to load game data.');
       }
     }
 
@@ -76,32 +76,32 @@ const VideoGameDetails = ({ gameId }: { gameId: string }) => {
         </CardContent>
         <CardFooter className="flex-1 flex-col items-start p-4">
           <div className="mb-4">
-            Platforms:{" "}
+            Platforms:{' '}
             {videoGame.platforms?.length > 0
               ? videoGame.platforms
                   .map((p: { platform: { name: any } }) => p.platform.name)
-                  .join(", ")
-              : "N/A"}
+                  .join(', ')
+              : 'N/A'}
           </div>
           <div className="mb-4">
-            Metacritic Rating: {videoGame.metacritic || "N/A"}
+            Metacritic Rating: {videoGame.metacritic || 'N/A'}
           </div>
           <div className="mb-4">
-            Released: {videoGame.formattedReleased || "N/A"}
+            Released: {videoGame.formattedReleased || 'N/A'}
           </div>
           <div className="mb-4">
-            Website:{" "}
+            Website:{' '}
             {videoGame.website ? (
               <Link href={videoGame.website} target="_blank">
                 Visit Website
               </Link>
             ) : (
-              "N/A"
+              'N/A'
             )}
           </div>
-          <div className="mb-4">Rating: {videoGame.rating || "N/A"}</div>
+          <div className="mb-4">Rating: {videoGame.rating || 'N/A'}</div>
           <div className="mb-4">
-            Playtime: {`${videoGame.playtime} hours` || "N/A"}
+            Playtime: {`${videoGame.playtime} hours` || 'N/A'}
           </div>
         </CardFooter>
       </Card>

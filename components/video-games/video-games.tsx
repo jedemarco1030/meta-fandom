@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -10,10 +10,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import GameCard from "@/components/video-games/game-card";
-import { getVideoGamesList } from "@/lib/rawg-api";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import GameCard from '@/components/video-games/game-card';
+import { getVideoGamesList } from '@/lib/rawg-api';
 
 interface Game {
   id: number;
@@ -44,7 +44,7 @@ interface Requirements {
 }
 
 const VideoGames = ({ videoGameList }: { videoGameList: Game[] }) => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [games, setGames] = useState<Game[]>(videoGameList);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -60,7 +60,7 @@ const VideoGames = ({ videoGameList }: { videoGameList: Game[] }) => {
         );
         setHasMore(fetchedGames.length > 0);
       } catch (error) {
-        console.error("Error fetching games:", error);
+        console.error('Error fetching games:', error);
         setHasMore(false);
       } finally {
         setLoading(false);
@@ -68,7 +68,7 @@ const VideoGames = ({ videoGameList }: { videoGameList: Game[] }) => {
     };
 
     fetchGames().catch((err) =>
-      console.error("Failed to fetch games on mount:", err),
+      console.error('Failed to fetch games on mount:', err),
     );
   }, [search, page]);
 
@@ -102,11 +102,11 @@ const VideoGames = ({ videoGameList }: { videoGameList: Game[] }) => {
               discover more games.
             </div>
             <div className="mb-4 text-center text-lg">
-              Dive deeper into your gaming adventure by adding games to your{" "}
+              Dive deeper into your gaming adventure by adding games to your{' '}
               <strong>Favorites</strong>.
             </div>
             <div className="mb-4 text-center text-lg">
-              You can easily <strong>Add</strong> or <strong>Remove</strong>{" "}
+              You can easily <strong>Add</strong> or <strong>Remove</strong>{' '}
               games from your favorites list for each game.
             </div>
           </CardContent>

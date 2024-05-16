@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -12,7 +12,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 
 interface Game {
   id: number;
@@ -48,11 +48,11 @@ interface GameCardProps {
 
 const formatDate = (dateString: string): string => {
   const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   };
-  return new Date(dateString).toLocaleDateString("en-US", options);
+  return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
 const GameCard: React.FC<GameCardProps> = ({ game }) => {
@@ -64,13 +64,13 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
       </CardHeader>
       <CardContent className="flex-1 p-4">
         <div className="mb-4">
-          Platforms:{" "}
+          Platforms:{' '}
           {game.platforms?.length > 0
-            ? game.platforms.map((p) => p.platform.name).join(", ")
-            : "N/A"}
+            ? game.platforms.map((p) => p.platform.name).join(', ')
+            : 'N/A'}
         </div>
         <div className="mb-4">
-          Metacritic Rating: {game.metacritic > 0 ? game.metacritic : "N/A"}
+          Metacritic Rating: {game.metacritic > 0 ? game.metacritic : 'N/A'}
         </div>
         {game.background_image && (
           <div className="relative mb-4 h-48 w-full">
