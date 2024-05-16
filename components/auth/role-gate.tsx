@@ -20,5 +20,6 @@ export const RoleGate = ({ children, allowedRole }: RoleGateProps) => {
     );
   }
 
+  // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;
 };
