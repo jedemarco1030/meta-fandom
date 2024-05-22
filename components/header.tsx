@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { ExitIcon } from '@radix-ui/react-icons';
-import { Menu, SquareLibrary } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import { FaUser } from 'react-icons/fa';
+import { ExitIcon } from "@radix-ui/react-icons";
+import { Menu, SquareLibrary } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { FaUser } from "react-icons/fa";
 
-import { LogoutButton } from '@/components/auth/logout-button';
-import { ThemeModeToggle } from '@/components/theme-mode-toggle';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { LogoutButton } from "@/components/auth/logout-button";
+import { ThemeModeToggle } from "@/components/theme-mode-toggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,9 +18,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { useCurrentUser } from '@/hooks/use-current-user';
+} from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export const Header = () => {
   const { data: session } = useSession();
@@ -40,25 +40,13 @@ export const Header = () => {
           </Link>
           <Link
             href="/video-games"
-            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/video-games' ? 'text-foreground' : 'text-muted-foreground'}`}
+            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/video-games" ? "text-foreground" : "text-muted-foreground"}`}
           >
             Video Games
           </Link>
-          {/* <Link */}
-          {/*  href="/tv-movies" */}
-          {/*  className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/tv-movies' ? 'text-foreground' : 'text-muted-foreground'}`} */}
-          {/* > */}
-          {/*  TV & Movies */}
-          {/* </Link> */}
-          {/* <Link */}
-          {/*  href="/books" */}
-          {/*  className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/books' ? 'text-foreground' : 'text-muted-foreground'}`} */}
-          {/* > */}
-          {/*  Books */}
-          {/* </Link> */}
           <Link
             href="/pokemon"
-            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/pokemon' ? 'text-foreground' : 'text-muted-foreground'}`}
+            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/pokemon" ? "text-foreground" : "text-muted-foreground"}`}
           >
             Pokemon
           </Link>
@@ -85,25 +73,13 @@ export const Header = () => {
               </Link>
               <Link
                 href="/video-games/video-games"
-                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/video-games' ? 'text-foreground' : 'text-muted-foreground'}`}
+                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/video-games" ? "text-foreground" : "text-muted-foreground"}`}
               >
                 Video Games
               </Link>
-              {/* <Link */}
-              {/*  href="/tv-movies" */}
-              {/*  className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/tv-movies' ? 'text-foreground' : 'text-muted-foreground'}`} */}
-              {/* > */}
-              {/*  TV & Movies */}
-              {/* </Link> */}
-              {/* <Link */}
-              {/*  href="/books" */}
-              {/*  className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/books' ? 'text-foreground' : 'text-muted-foreground'}`} */}
-              {/* > */}
-              {/*  Books */}
-              {/* </Link> */}
               <Link
                 href="/pokemon"
-                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === '/pokemon' ? 'text-foreground' : 'text-muted-foreground'}`}
+                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/pokemon" ? "text-foreground" : "text-muted-foreground"}`}
               >
                 Pokemon
               </Link>
@@ -111,53 +87,51 @@ export const Header = () => {
           </SheetContent>
         </Sheet>
         <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-          <form className="ml-auto flex-1 sm:flex-initial">
-            {/* <div className="relative"> */}
-            {/*  <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" /> */}
-            {/*  <Input */}
-            {/*    type="search" */}
-            {/*    placeholder="Search site..." */}
-            {/*    className="bg-input pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]" */}
-            {/*  /> */}
-            {/* </div> */}
-          </form>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <Avatar>
-                <AvatarImage src={user?.image || ''} />
-                <AvatarFallback className="border">
-                  <FaUser className="text-white" />
-                </AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {session ? (
-                <>
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>
-                    <Link href="/settings">Settings</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <LogoutButton>
+          <form className="ml-auto flex-1 sm:flex-initial" />
+          <div className="flex items-center gap-4">
+            <span className="font-medium">
+              {session
+                ? `Welcome, ${user?.name || "User"}!`
+                : "Welcome, Guest!"}
+            </span>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Avatar>
+                  <AvatarImage src={user?.image || ""} />
+                  <AvatarFallback className="border">
+                    <FaUser className="text-white" />
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {session ? (
+                  <>
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem>
-                      <ExitIcon className="mr-2 size-4" />
-                      Logout
+                      <Link href="/settings">Settings</Link>
                     </DropdownMenuItem>
-                  </LogoutButton>
-                </>
-              ) : (
-                <>
-                  <DropdownMenuItem>
-                    <Link href="/auth/register">Register</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <Link href="/auth/login">Login</Link>
-                  </DropdownMenuItem>
-                </>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
+                    <DropdownMenuSeparator />
+                    <LogoutButton>
+                      <DropdownMenuItem>
+                        <ExitIcon className="mr-2 size-4" />
+                        Logout
+                      </DropdownMenuItem>
+                    </LogoutButton>
+                  </>
+                ) : (
+                  <>
+                    <DropdownMenuItem>
+                      <Link href="/auth/register">Register</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link href="/auth/login">Login</Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
           <ThemeModeToggle />
         </div>
       </header>

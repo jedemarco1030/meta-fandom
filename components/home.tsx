@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import React from "react";
 
 import {
   Card,
@@ -8,11 +8,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 
 export const Home = () => {
   return (
-    <main className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <main className="mx-auto max-w-screen-lg px-4 sm:px-6 lg:px-8">
       <section className="pb-16 pt-8">
         <Card className="flex flex-col overflow-hidden">
           <CardHeader className="flex-1 p-4">
@@ -50,7 +50,7 @@ export const Home = () => {
               <h2 className="my-4 text-2xl font-semibold">Add to Favorites</h2>
               <p>
                 Create a personalized list of your favorite games for easy
-                access. Just look for the <strong>Add to Favorites</strong>{' '}
+                access. Just look for the <strong>Add to Favorites</strong>{" "}
                 button on any game detail page.
               </p>
             </div>

@@ -1,13 +1,4 @@
-const RAWG_API = 'https://api.rawg.io/api/';
-
-interface APIResponse<T> {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: T[];
-}
-
-interface Game {
+export interface Game {
   id: number;
   slug: string;
   name: string;
@@ -18,7 +9,7 @@ interface Game {
   platforms: PlatformDetail[];
 }
 
-interface GameDetail extends Game {
+export interface GameDetail extends Game {
   name_original: string;
   description: string;
   metacritic_platforms: MetacriticPlatform[];
@@ -83,18 +74,35 @@ interface Requirements {
   recommended: string;
 }
 
+interface VideoGameListResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Game[];
+}
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
 export async function getVideoGamesList(
   search: string,
   page: number,
 ): Promise<Game[]> {
   try {
-    const url = `${RAWG_API}games?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}&search=${search}&page_size=10&page=${page}`;
+    const url = `${BASE_URL}/api/video-games?search=${search}&page=${page}`;
     const response = await fetch(url);
-    const data: APIResponse<Game> = await response.json();
-    if (!response.ok) throw new Error('Failed to fetch games list');
-    return data.results;
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch games list");
+    }
+
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      const data: VideoGameListResponse = await response.json();
+      return data.results || [];
+    }
+    throw new Error("Invalid response format");
   } catch (error) {
-    console.error('Error fetching games list:', error);
+    console.error("Error fetching games list:", error);
     return [];
   }
 }
@@ -103,14 +111,20 @@ export async function getVideoGameDetails(
   id: string,
 ): Promise<GameDetail | null> {
   try {
-    const url = `${RAWG_API}games/${id}?key=${process.env.NEXT_PUBLIC_RAWG_API_KEY}`;
+    const url = `${BASE_URL}/api/video-games?id=${id}`;
     const response = await fetch(url);
-    const data: GameDetail = await response.json();
-    if (!response.ok)
+
+    if (!response.ok) {
       throw new Error(`Failed to fetch details for game ID: ${id}`);
-    return data;
+    }
+
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      return await response.json();
+    }
+    throw new Error("Invalid response format");
   } catch (error) {
-    console.error('Error fetching game details:', error);
+    console.error("Error fetching game details:", error);
     return null;
   }
 }

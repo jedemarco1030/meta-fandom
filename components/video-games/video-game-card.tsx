@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 
-import { Button } from '@/components/ui/button';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -12,7 +13,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 
 interface Game {
   id: number;
@@ -48,29 +49,53 @@ interface GameCardProps {
 
 const formatDate = (dateString: string): string => {
   const options: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
-  return new Date(dateString).toLocaleDateString('en-US', options);
+  return new Date(dateString).toLocaleDateString("en-US", options);
 };
 
-const GameCard: React.FC<GameCardProps> = ({ game }) => {
+const getMetacriticColor = (rating: number) => {
+  if (rating >= 80) {
+    return "bg-green-500";
+  }
+  if (rating >= 65 && rating < 80) {
+    return "bg-yellow-500";
+  }
+  if (rating > 0 && rating < 65) {
+    return "bg-red-500";
+  }
+  return "bg-gray-500"; // For no rating
+};
+
+const VideoGameCard: React.FC<GameCardProps> = ({ game }) => {
+  const metacriticColor = getMetacriticColor(game.metacritic);
+
   return (
     <Card className="flex flex-col overflow-hidden">
       <CardHeader className="flex-1 p-4">
-        <CardTitle>{game.name}</CardTitle>
-        <CardDescription>Released: {formatDate(game.released)}</CardDescription>
+        <CardTitle className="flex items-center justify-between">
+          <span>{game.name}</span>
+          <span className={`rounded p-2 text-white ${metacriticColor}`}>
+            {game.metacritic > 0 ? game.metacritic : "N/A"}
+          </span>
+        </CardTitle>
+        <CardDescription>{formatDate(game.released)}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 p-4">
         <div className="mb-4">
-          Platforms:{' '}
-          {game.platforms?.length > 0
-            ? game.platforms.map((p) => p.platform.name).join(', ')
-            : 'N/A'}
-        </div>
-        <div className="mb-4">
-          Metacritic Rating: {game.metacritic > 0 ? game.metacritic : 'N/A'}
+          {game.platforms?.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {game.platforms.map((p) => (
+                <Badge key={p.platform.id} className="inline-block">
+                  {p.platform.name}
+                </Badge>
+              ))}
+            </div>
+          ) : (
+            "N/A"
+          )}
         </div>
         {game.background_image && (
           <div className="relative mb-4 h-48 w-full">
@@ -80,6 +105,7 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="rounded object-cover"
+              priority
             />
           </div>
         )}
@@ -98,4 +124,4 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
   );
 };
 
-export default GameCard;
+export default VideoGameCard;
