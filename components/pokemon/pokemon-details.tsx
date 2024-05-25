@@ -13,6 +13,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import type { PokemonDetails as PokemonDetailsType } from "@/lib/poke-api";
 import { getPokemonDetails } from "@/lib/poke-api";
 
@@ -40,7 +46,13 @@ const PokemonDetails = ({ pokemonName }: { pokemonName: string }) => {
       }
     }
 
-    fetchPokemon();
+    fetchPokemon()
+      .then(() => {
+        console.log("Pokémon fetched successfully");
+      })
+      .catch((err) => {
+        console.error("Error in fetching Pokémon:", err);
+      });
 
     return () => {
       isMounted = false;
@@ -81,26 +93,52 @@ const PokemonDetails = ({ pokemonName }: { pokemonName: string }) => {
 
   if (!pokemon) return null;
 
+  const typeColors: { [key in string]: string } = {
+    normal: "bg-[#A8A77A]",
+    fire: "bg-[#EE8130]",
+    water: "bg-[#6390F0]",
+    electric: "bg-[#F7D02C]",
+    grass: "bg-[#7AC74C]",
+    ice: "bg-[#96D9D6]",
+    fighting: "bg-[#C22E28]",
+    poison: "bg-[#A33EA1]",
+    ground: "bg-[#E2BF65]",
+    flying: "bg-[#A98FF3]",
+    psychic: "bg-[#F95587]",
+    bug: "bg-[#A6B91A]",
+    rock: "bg-[#B6A136]",
+    ghost: "bg-[#735797]",
+    dragon: "bg-[#6F35FC]",
+    dark: "bg-[#705746]",
+    steel: "bg-[#B7B7CE]",
+    fairy: "bg-[#D685AD]",
+  };
+
   return (
     <div className="mx-auto w-full max-w-screen-lg p-4">
       <Card className="flex flex-col overflow-hidden">
         <CardHeader className="flex-1 p-4">
           <CardTitle className="text-center text-3xl font-bold">
-            {transformedName}
+            #{pokemon.id} - {transformedName}
           </CardTitle>
           <CardDescription className="text-center text-lg">
-            <span className="block">Height: {pokemon.height}</span>
-            <span className="block">Weight: {pokemon.weight}</span>
             <span className="block">
-              Types:{" "}
+              {(pokemon.height / 10).toFixed(1)} meters
+            </span>
+            <span className="block">
+              {(pokemon.weight / 10).toFixed(1)} kilograms
+            </span>
+            <span className="block">
               {pokemon.types.length > 0
-                ? pokemon.types
-                    .map(
-                      (t) =>
-                        t.type.name.charAt(0).toUpperCase() +
-                        t.type.name.slice(1),
-                    )
-                    .join(", ")
+                ? pokemon.types.map((t) => (
+                    <span
+                      key={t.type.name}
+                      className={`m-1 inline-block rounded-md px-3 font-bold text-white ${typeColors[t.type.name]}`}
+                    >
+                      {t.type.name.charAt(0).toUpperCase() +
+                        t.type.name.slice(1)}
+                    </span>
+                  ))
                 : "N/A"}
             </span>
           </CardDescription>
@@ -118,16 +156,27 @@ const PokemonDetails = ({ pokemonName }: { pokemonName: string }) => {
           )}
         </CardContent>
         <CardFooter className="flex-1 flex-col items-start p-4">
+          <h3 className="mb-4 text-xl font-bold">Base Stats</h3>
           {pokemon.stats.map((statObject) => {
             const statName = formatStatName(statObject.stat.name);
             const statValue = statObject.base_stat;
 
             return (
               <div className="mb-4 flex w-full items-center" key={statName}>
-                <h3 className="w-1/3 text-lg">
-                  {statName}: {statValue}
-                </h3>
-                <Progress className="w-2/3" value={statValue} />
+                <h3 className="w-1/3 text-lg">{statName}</h3>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger className="w-2/3">
+                      <Progress
+                        className="w-full bg-background"
+                        value={(statValue / 255) * 100}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <span>{statValue}</span>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
             );
           })}

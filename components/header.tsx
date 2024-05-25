@@ -72,7 +72,7 @@ export const Header = () => {
                 <span className="font-bold">Meta Fandom</span>
               </Link>
               <Link
-                href="/video-games/video-games"
+                href="/video-games"
                 className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/video-games" ? "text-foreground" : "text-muted-foreground"}`}
               >
                 Video Games
@@ -99,7 +99,7 @@ export const Header = () => {
                 <Avatar>
                   <AvatarImage src={user?.image || ""} />
                   <AvatarFallback className="border">
-                    <FaUser className="text-white" />
+                    <FaUser />
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>

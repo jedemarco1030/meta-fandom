@@ -90,7 +90,7 @@ const SettingsPage = () => {
                         {...field}
                         placeholder="John Doe"
                         disabled={isPending}
-                        className="bg-input"
+                        className="bg-background"
                       />
                     </FormControl>
                     <FormMessage />
@@ -108,10 +108,10 @@ const SettingsPage = () => {
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder="john.doe@example.com"
+                            placeholder="Please enter your email address"
                             type="email"
                             disabled={isPending}
-                            className="bg-input"
+                            className="bg-background"
                           />
                         </FormControl>
                         <FormMessage />
@@ -127,10 +127,10 @@ const SettingsPage = () => {
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder="******"
+                            placeholder="Please enter your current password"
                             type="password"
                             disabled={isPending}
-                            className="bg-input"
+                            className="bg-background"
                           />
                         </FormControl>
                         <FormMessage />
@@ -146,10 +146,10 @@ const SettingsPage = () => {
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder="******"
+                            placeholder="Please enter your new password"
                             type="password"
                             disabled={isPending}
-                            className="bg-input"
+                            className="bg-background"
                           />
                         </FormControl>
                         <FormMessage />
@@ -169,7 +169,7 @@ const SettingsPage = () => {
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
-                      <FormControl className="bg-input">
+                      <FormControl className="bg-background">
                         <SelectTrigger>
                           <SelectValue placeholder="Select a role" />
                         </SelectTrigger>
@@ -188,7 +188,7 @@ const SettingsPage = () => {
                   control={form.control}
                   name="isTwoFactorEnabled"
                   render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border bg-input p-3 shadow-sm">
+                    <FormItem className="flex flex-row items-center justify-between rounded-lg border bg-background p-3 shadow-sm">
                       <div className="space-y-0.5">
                         <FormLabel>Two Factor Authentication</FormLabel>
                         <FormDescription>

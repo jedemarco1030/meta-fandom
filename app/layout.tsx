@@ -55,7 +55,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
               <div className="flex min-h-screen flex-col">
                 <Toaster />
                 <Header />
-                <main className="grow bg-muted">{children}</main>
+                <main className="grow">{children}</main>
                 <Footer />
                 <Analytics />
                 <SpeedInsights />

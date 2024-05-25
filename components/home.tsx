@@ -67,7 +67,7 @@ export const Home = () => {
               </p>
               <Link
                 href="/auth/register"
-                className="my-4 inline-block rounded bg-muted px-4 py-2 transition duration-150"
+                className="my-4 inline-block rounded bg-foreground text-background px-4 py-2 transition duration-150"
               >
                 Register Now
               </Link>

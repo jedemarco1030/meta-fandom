@@ -120,7 +120,7 @@ const Pokemon = ({ initialPokemonList }: PokemonSearchProps) => {
               id="pokemonName"
               placeholder="Search for Pokémon..."
               onChange={handleSearchChange}
-              className="mb-4 w-full rounded-lg bg-input"
+              className="mb-4 w-full rounded-lg bg-background"
             />
           </CardFooter>
         </Card>

@@ -116,15 +116,15 @@ const VideoGames = ({
               type="text"
               placeholder="Search for a game..."
               onChange={handleSearchChange}
-              className="mb-4 w-full rounded-lg bg-input"
+              className="mb-4 w-full rounded-lg bg-background"
             />
           </CardFooter>
         </Card>
       </div>
 
       {loading && page === 1 && (
-        <div className="flex h-64 items-center justify-center">
-          <Loader2 className="mr-2 size-4 animate-spin" />
+        <div className="flex h-screen items-center justify-center">
+          <Loader2 className="mr-2 size-16 animate-spin" />
         </div>
       )}
 
