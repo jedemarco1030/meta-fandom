@@ -105,7 +105,7 @@ export const LoginForm = () => {
                         {...field}
                         disabled={isPending}
                         placeholder="Please enter your two factor code"
-                        className="bg-input"
+                        className="bg-background"
                       />
                     </FormControl>
                     <FormMessage />
@@ -127,7 +127,7 @@ export const LoginForm = () => {
                           disabled={isPending}
                           placeholder="Please enter your email address"
                           type="email"
-                          className="bg-input"
+                          className="bg-background"
                         />
                       </FormControl>
                       <FormMessage />
@@ -146,7 +146,7 @@ export const LoginForm = () => {
                           disabled={isPending}
                           placeholder="Please enter your password"
                           type="password"
-                          className="bg-input"
+                          className="bg-background"
                         />
                       </FormControl>
                       <Button

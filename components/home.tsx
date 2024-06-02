@@ -21,7 +21,7 @@ export const Home = () => {
             </CardTitle>
             <CardDescription className="mb-8 text-center text-lg">
               Your ultimate destination for discovering and sharing your
-              favorite games and Pokémon.
+              favorite games, Pokémon, movies, TV shows, and books.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex-1 p-4">
@@ -34,7 +34,6 @@ export const Home = () => {
                 next adventure.
               </p>
             </div>
-
             <div>
               <h2 className="my-4 text-2xl font-semibold">
                 Search for Pokémon
@@ -45,13 +44,28 @@ export const Home = () => {
                 for.
               </p>
             </div>
-
             <div>
-              <h2 className="my-4 text-2xl font-semibold">Add to Favorites</h2>
+              <h2 className="my-4 text-2xl font-semibold">Search for Movies</h2>
               <p>
-                Create a personalized list of your favorite games for easy
-                access. Just look for the <strong>Add to Favorites</strong>{" "}
-                button on any game detail page.
+                Find information about your favorite movies. Search by title,
+                genre, or release date to discover movies you&apos;ll love to
+                watch.
+              </p>
+            </div>
+            <div>
+              <h2 className="my-4 text-2xl font-semibold">
+                Search for TV Shows
+              </h2>
+              <p>
+                Explore detailed information about TV shows. Search by title,
+                genre, or network to find your next binge-worthy series.
+              </p>
+            </div>
+            <div>
+              <h2 className="my-4 text-2xl font-semibold">Search for Books</h2>
+              <p>
+                Discover new books to read. Search by title, author, or genre to
+                find your next favorite book.
               </p>
             </div>
           </CardContent>
@@ -67,7 +81,7 @@ export const Home = () => {
               </p>
               <Link
                 href="/auth/register"
-                className="my-4 inline-block rounded bg-foreground text-background px-4 py-2 transition duration-150"
+                className="my-4 inline-block rounded bg-foreground px-4 py-2 text-background transition duration-150"
               >
                 Register Now
               </Link>

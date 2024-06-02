@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { SkeletonCard } from "@/components/skeleton-card";
+import TVCard from "@/components/tv/tv-card";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,23 +17,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import VideoGameCard from "@/components/video-games/video-game-card";
-import { getVideoGamesList } from "@/lib/rawg-api";
-import type { Game } from "@/types/video-games";
+import { getTVList } from "@/lib/tmdb-api";
+import type { TVShowDetails } from "@/types/tv";
 
-interface GameSearchProps {
-  initialGames: Game[];
+interface TVSearchProps {
+  initialTV: TVShowDetails[];
   initialSearch: string;
   initialPage: number;
 }
 
-const VideoGames = ({
-  initialGames,
-  initialSearch,
-  initialPage,
-}: GameSearchProps) => {
+const TV = ({ initialTV, initialSearch, initialPage }: TVSearchProps) => {
   const [search, setSearch] = useState(initialSearch);
-  const [games, setGames] = useState(initialGames);
+  const [tv, setTV] = useState(initialTV);
   const [page, setPage] = useState(initialPage);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -49,18 +45,16 @@ const VideoGames = ({
     };
   }, [debouncedSearch]);
 
-  const fetchGames = useCallback(async () => {
+  const fetchTV = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const fetchedGames = await getVideoGamesList(search, page);
-      setGames((prevGames) =>
-        page === 1 ? fetchedGames : [...prevGames, ...fetchedGames],
-      );
-      setHasMore(fetchedGames.length > 0);
+      const fetchedTV = await getTVList(search, page);
+      setTV((prevTV) => (page === 1 ? fetchedTV : [...prevTV, ...fetchedTV]));
+      setHasMore(fetchedTV.length > 0);
     } catch (err) {
-      console.error("Error fetching games:", err);
-      setError("Failed to load games. Please try again later.");
+      console.error("Error fetching TV:", err);
+      setError("Failed to load TV. Please try again later.");
       setHasMore(false);
     } finally {
       setLoading(false);
@@ -68,24 +62,27 @@ const VideoGames = ({
   }, [search, page]);
 
   useEffect(() => {
-    fetchGames().catch((err) => console.error("Failed to load games:", err));
-  }, [fetchGames]);
+    fetchTV().catch((err) => console.error("Failed to load TV:", err));
+  }, [fetchTV]);
 
   const handleLoadMore = () => {
     if (!loading) {
       setPage((prevPage) => prevPage + 1);
-      fetchGames().catch((err) =>
-        console.error("Failed to load more games:", err),
-      );
     }
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setPage(1);
-    setGames([]);
+    setTV([]);
     debouncedSearch(value);
   };
+
+  useEffect(() => {
+    if (page > 1) {
+      fetchTV().catch((err) => console.error("Failed to load more TV:", err));
+    }
+  }, [page, fetchTV]);
 
   return (
     <div className="mx-auto w-full max-w-screen-lg p-4">
@@ -93,28 +90,28 @@ const VideoGames = ({
         <Card className="flex flex-col overflow-hidden">
           <CardHeader className="flex-1 p-4">
             <CardTitle className="mb-4 text-center text-3xl font-bold">
-              Welcome to Game Search
+              Welcome to TV Search
             </CardTitle>
             <CardDescription className="mb-4 text-center text-lg">
-              Explore a vast collection of video games.
+              Explore a vast collection of TV shows.
             </CardDescription>
           </CardHeader>
           <CardContent className="mb-4 flex-1 p-4">
             <div className="mb-4 text-center text-lg">
-              Use the input field below to search for games by name.
+              Use the input field below to search for TV shows by name.
             </div>
             <div className="mb-4 text-center text-lg">
               Can&apos;t find what you&apos;re looking for?
             </div>
             <div className="mb-4 text-center text-lg">
               Click the <strong>&quot;Load More&quot;</strong> button to
-              discover more games.
+              discover more TV shows.
             </div>
           </CardContent>
           <CardFooter className="p-4">
             <Input
               type="text"
-              placeholder="Search for a game..."
+              placeholder="Search for a TV show..."
               onChange={handleSearchChange}
               className="mb-4 w-full rounded-lg bg-background"
             />
@@ -129,8 +126,8 @@ const VideoGames = ({
       )}
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {games.length > 0 &&
-          games.map((game) => <VideoGameCard key={game.id} game={game} />)}
+        {tv.length > 0 &&
+          tv.map((tvDetails) => <TVCard key={tvDetails.id} tv={tvDetails} />)}
         {loading &&
           page > 1 &&
           Array.from({ length: 6 }).map(() => <SkeletonCard key={uuidv4()} />)}
@@ -138,9 +135,9 @@ const VideoGames = ({
 
       {error && <p className="text-center text-red-500">{error}</p>}
 
-      {!games.length && !loading && !error && (
+      {!tv.length && !loading && !error && (
         <p className="text-center">
-          No games found. Try adjusting your search.
+          No TV shows found. Try adjusting your search.
         </p>
       )}
 
@@ -153,4 +150,4 @@ const VideoGames = ({
   );
 };
 
-export default VideoGames;
+export default TV;

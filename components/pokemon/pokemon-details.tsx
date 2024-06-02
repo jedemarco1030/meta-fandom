@@ -19,11 +19,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import type { PokemonDetails as PokemonDetailsType } from "@/lib/poke-api";
 import { getPokemonDetails } from "@/lib/poke-api";
+import type { PokemonListDetails } from "@/types/pokemon";
 
 const PokemonDetails = ({ pokemonName }: { pokemonName: string }) => {
-  const [pokemon, setPokemon] = useState<PokemonDetailsType | null>(null);
+  const [pokemon, setPokemon] = useState<PokemonListDetails | null>(null);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 

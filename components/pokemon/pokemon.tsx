@@ -14,8 +14,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import type { PokemonListResult } from "@/lib/poke-api";
 import { getPokemonList } from "@/lib/poke-api";
+import type { PokemonListResult } from "@/types/pokemon";
 
 interface PokemonSearchProps {
   initialPokemonList: PokemonListResult[];
@@ -38,7 +38,7 @@ const Pokemon = ({ initialPokemonList }: PokemonSearchProps) => {
       setLoading(true);
       setError(null);
       try {
-        const limit = 10000; // Arbitrarily large limit to fetch all Pokémon
+        const limit = 20000;
         const fetchedPokemon = await getPokemonList(limit, 0);
         setTotalPokemonList(fetchedPokemon);
         setPokemonList(fetchedPokemon);

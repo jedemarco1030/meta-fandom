@@ -50,6 +50,24 @@ export const Header = () => {
           >
             Pokemon
           </Link>
+          <Link
+            href="/movies"
+            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/movies" ? "text-foreground" : "text-muted-foreground"}`}
+          >
+            Movies
+          </Link>
+          <Link
+            href="/tv"
+            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/tv" ? "text-foreground" : "text-muted-foreground"}`}
+          >
+            TV
+          </Link>
+          <Link
+            href="/books"
+            className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/books" ? "text-foreground" : "text-muted-foreground"}`}
+          >
+            Books
+          </Link>
         </nav>
         <Sheet>
           <SheetTrigger asChild>
@@ -82,6 +100,24 @@ export const Header = () => {
                 className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/pokemon" ? "text-foreground" : "text-muted-foreground"}`}
               >
                 Pokemon
+              </Link>
+              <Link
+                href="/movies"
+                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/movies" ? "text-foreground" : "text-muted-foreground"}`}
+              >
+                Movies
+              </Link>
+              <Link
+                href="/tv"
+                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/tv" ? "text-foreground" : "text-muted-foreground"}`}
+              >
+                TV
+              </Link>
+              <Link
+                href="/books"
+                className={`whitespace-nowrap transition-colors hover:text-foreground ${pathname === "/books" ? "text-foreground" : "text-muted-foreground"}`}
+              >
+                Books
               </Link>
             </nav>
           </SheetContent>

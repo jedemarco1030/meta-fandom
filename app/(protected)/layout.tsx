@@ -11,10 +11,8 @@ const SettingsLayout = async ({ children }: { children: React.ReactNode }) => {
         <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
           <nav className="grid gap-4 text-sm text-muted-foreground">
             <Link href="/settings" className="font-semibold text-primary">
-              Personal Information
+              Account Information
             </Link>
-            <Link href="/settings">Account Information</Link>
-            <Link href="/settings">Other</Link>
           </nav>
           <div className="grid gap-6">{children}</div>
         </div>

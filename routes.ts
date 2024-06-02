@@ -9,6 +9,8 @@ export const publicRoutes: string[] = [
   "/auth/new-verification",
   "/video-games",
   "/pokemon",
+  "/movies",
+  "/tv",
 ];
 
 /**

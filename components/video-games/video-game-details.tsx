@@ -20,8 +20,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import type { GameDetail as GameDetailType } from "@/lib/rawg-api";
 import { getVideoGameDetails } from "@/lib/rawg-api";
+import type { GameDetail } from "@/types/video-games";
 
 const formatStatusName = (status: string): string => {
   switch (status) {
@@ -47,7 +47,7 @@ const formatNumber = (number: number): string => {
 };
 
 const VideoGameDetails = ({ gameId }: { gameId: string }) => {
-  const [videoGame, setVideoGame] = useState<GameDetailType | null>(null);
+  const [videoGame, setVideoGame] = useState<GameDetail | null>(null);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 

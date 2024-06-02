@@ -9,6 +9,14 @@ module.exports = {
         protocol: "https",
         hostname: "media.rawg.io",
       },
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org",
+      },
+      {
+        protocol: "https",
+        hostname: "covers.openlibrary.org",
+      },
     ],
   },
 };

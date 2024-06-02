@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import MovieCard from "@/components/movies/movie-card";
 import { SkeletonCard } from "@/components/skeleton-card";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,27 +17,27 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import VideoGameCard from "@/components/video-games/video-game-card";
-import { getVideoGamesList } from "@/lib/rawg-api";
-import type { Game } from "@/types/video-games";
+import { getMoviesList } from "@/lib/tmdb-api";
+import type { Movie } from "@/types/movies";
 
-interface GameSearchProps {
-  initialGames: Game[];
+interface MovieSearchProps {
+  initialMovies: Movie[];
   initialSearch: string;
   initialPage: number;
+  error?: string | null;
 }
 
-const VideoGames = ({
-  initialGames,
+const Movies = ({
+  initialMovies,
   initialSearch,
   initialPage,
-}: GameSearchProps) => {
+  error,
+}: MovieSearchProps) => {
   const [search, setSearch] = useState(initialSearch);
-  const [games, setGames] = useState(initialGames);
+  const [movies, setMovies] = useState(initialMovies);
   const [page, setPage] = useState(initialPage);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const debouncedSearch = useMemo(
     () => debounce((value: string) => setSearch(value), 300),
@@ -49,18 +50,16 @@ const VideoGames = ({
     };
   }, [debouncedSearch]);
 
-  const fetchGames = useCallback(async () => {
+  const fetchMovies = useCallback(async () => {
     setLoading(true);
-    setError(null);
     try {
-      const fetchedGames = await getVideoGamesList(search, page);
-      setGames((prevGames) =>
-        page === 1 ? fetchedGames : [...prevGames, ...fetchedGames],
+      const fetchedMovies = await getMoviesList(search, page);
+      setMovies((prevMovies) =>
+        page === 1 ? fetchedMovies : [...prevMovies, ...fetchedMovies],
       );
-      setHasMore(fetchedGames.length > 0);
+      setHasMore(fetchedMovies.length > 0);
     } catch (err) {
-      console.error("Error fetching games:", err);
-      setError("Failed to load games. Please try again later.");
+      console.error("Error fetching movies:", err);
       setHasMore(false);
     } finally {
       setLoading(false);
@@ -68,14 +67,14 @@ const VideoGames = ({
   }, [search, page]);
 
   useEffect(() => {
-    fetchGames().catch((err) => console.error("Failed to load games:", err));
-  }, [fetchGames]);
+    fetchMovies().catch((err) => console.error("Failed to load movies:", err));
+  }, [fetchMovies]);
 
   const handleLoadMore = () => {
     if (!loading) {
       setPage((prevPage) => prevPage + 1);
-      fetchGames().catch((err) =>
-        console.error("Failed to load more games:", err),
+      fetchMovies().catch((err) =>
+        console.error("Failed to load more movies:", err),
       );
     }
   };
@@ -83,7 +82,7 @@ const VideoGames = ({
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setPage(1);
-    setGames([]);
+    setMovies([]);
     debouncedSearch(value);
   };
 
@@ -93,28 +92,28 @@ const VideoGames = ({
         <Card className="flex flex-col overflow-hidden">
           <CardHeader className="flex-1 p-4">
             <CardTitle className="mb-4 text-center text-3xl font-bold">
-              Welcome to Game Search
+              Welcome to Movie Search
             </CardTitle>
             <CardDescription className="mb-4 text-center text-lg">
-              Explore a vast collection of video games.
+              Explore a vast collection of movies.
             </CardDescription>
           </CardHeader>
           <CardContent className="mb-4 flex-1 p-4">
             <div className="mb-4 text-center text-lg">
-              Use the input field below to search for games by name.
+              Use the input field below to search for movies by name.
             </div>
             <div className="mb-4 text-center text-lg">
               Can&apos;t find what you&apos;re looking for?
             </div>
             <div className="mb-4 text-center text-lg">
               Click the <strong>&quot;Load More&quot;</strong> button to
-              discover more games.
+              discover more movies.
             </div>
           </CardContent>
           <CardFooter className="p-4">
             <Input
               type="text"
-              placeholder="Search for a game..."
+              placeholder="Search for a movie..."
               onChange={handleSearchChange}
               className="mb-4 w-full rounded-lg bg-background"
             />
@@ -129,8 +128,8 @@ const VideoGames = ({
       )}
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {games.length > 0 &&
-          games.map((game) => <VideoGameCard key={game.id} game={game} />)}
+        {movies.length > 0 &&
+          movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
         {loading &&
           page > 1 &&
           Array.from({ length: 6 }).map(() => <SkeletonCard key={uuidv4()} />)}
@@ -138,9 +137,9 @@ const VideoGames = ({
 
       {error && <p className="text-center text-red-500">{error}</p>}
 
-      {!games.length && !loading && !error && (
+      {!movies.length && !loading && !error && (
         <p className="text-center">
-          No games found. Try adjusting your search.
+          No movies found. Try adjusting your search.
         </p>
       )}
 
@@ -153,4 +152,4 @@ const VideoGames = ({
   );
 };
 
-export default VideoGames;
+export default Movies;

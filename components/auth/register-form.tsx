@@ -68,7 +68,7 @@ export const RegisterForm = () => {
                       {...field}
                       disabled={isPending}
                       placeholder="Please enter your name"
-                      className="bg-input"
+                      className="bg-background"
                     />
                   </FormControl>
                   <FormMessage />
@@ -87,7 +87,7 @@ export const RegisterForm = () => {
                       disabled={isPending}
                       placeholder="Please enter your email address"
                       type="email"
-                      className="bg-input"
+                      className="bg-background"
                     />
                   </FormControl>
                   <FormMessage />
@@ -106,7 +106,7 @@ export const RegisterForm = () => {
                       disabled={isPending}
                       placeholder="Please enter your password"
                       type="password"
-                      className="bg-input"
+                      className="bg-background"
                     />
                   </FormControl>
                   <FormMessage />
