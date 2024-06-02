@@ -131,26 +131,27 @@ const Pokemon = ({ initialPokemonList }: PokemonSearchProps) => {
           <Loader2 className="mr-2 size-16 animate-spin" />
         </div>
       )}
+
       {error && <p className="text-center text-red-500">{error}</p>}
-      {displayedPokemonList.length > 0 ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {displayedPokemonList.map((pokemon) => (
+
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {displayedPokemonList.length > 0 &&
+          displayedPokemonList.map((pokemon) => (
             <PokemonCard
               key={pokemon.name}
               name={pokemon.name}
               url={pokemon.url}
             />
           ))}
-        </div>
-      ) : (
-        !loading &&
-        !error && (
-          <p className="text-center">
-            No Pokémon found. Try adjusting your search.
-          </p>
-        )
+      </div>
+
+      {!displayedPokemonList.length && !loading && !error && (
+        <p className="text-center">
+          No Pokémon found. Try adjusting your search.
+        </p>
       )}
-      {!searchText && (
+
+      {!searchText && !error && (
         <Button className="mt-4 block w-full" onClick={loadMorePokemon}>
           Load More
         </Button>

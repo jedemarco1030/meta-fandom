@@ -17,27 +17,26 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { getMoviesList } from "@/lib/tmdb-api";
+import { getDiscoverMovies, getMoviesList } from "@/lib/tmdb-api";
 import type { Movie } from "@/types/movies";
 
 interface MovieSearchProps {
   initialMovies: Movie[];
   initialSearch: string;
   initialPage: number;
-  error?: string | null;
 }
 
 const Movies = ({
   initialMovies,
   initialSearch,
   initialPage,
-  error,
 }: MovieSearchProps) => {
   const [search, setSearch] = useState(initialSearch);
   const [movies, setMovies] = useState(initialMovies);
   const [page, setPage] = useState(initialPage);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const debouncedSearch = useMemo(
     () => debounce((value: string) => setSearch(value), 300),
@@ -52,8 +51,11 @@ const Movies = ({
 
   const fetchMovies = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
-      const fetchedMovies = await getMoviesList(search, page);
+      const fetchedMovies = search
+        ? await getMoviesList(search, page)
+        : await getDiscoverMovies(page);
       setMovies((prevMovies) =>
         page === 1 ? fetchedMovies : [...prevMovies, ...fetchedMovies],
       );
@@ -73,9 +75,6 @@ const Movies = ({
   const handleLoadMore = () => {
     if (!loading) {
       setPage((prevPage) => prevPage + 1);
-      fetchMovies().catch((err) =>
-        console.error("Failed to load more movies:", err),
-      );
     }
   };
 
@@ -143,7 +142,7 @@ const Movies = ({
         </p>
       )}
 
-      {hasMore && !loading && (
+      {hasMore && !loading && !error && (
         <Button className="mt-4 block w-full" onClick={handleLoadMore}>
           Load More
         </Button>

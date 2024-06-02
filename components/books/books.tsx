@@ -146,7 +146,7 @@ const Books = ({
         </p>
       )}
 
-      {hasMore && !loading && (
+      {hasMore && !loading && !error && (
         <Button className="mt-4 block w-full" onClick={handleLoadMore}>
           Load More
         </Button>

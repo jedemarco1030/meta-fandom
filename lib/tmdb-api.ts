@@ -49,7 +49,7 @@ export async function getMovieDetails(movieId: string): Promise<Movie | null> {
 
 export async function getDiscoverMovies(page: number): Promise<Movie[]> {
   try {
-    const url = `${BASE_URL}/api/discover/movie?page=${page}`;
+    const url = `${BASE_URL}/api/movies?page=${page}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -94,7 +94,7 @@ export async function getTVList(
 
 export async function getDiscoverTV(page: number): Promise<TVShowDetails[]> {
   try {
-    const url = `${BASE_URL}/api/discover/tv?page=${page}`;
+    const url = `${BASE_URL}/api/tv?page=${page}`;
     const response = await fetch(url);
 
     if (!response.ok) {

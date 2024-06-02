@@ -17,7 +17,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { getTVList } from "@/lib/tmdb-api";
+import { getDiscoverTV, getTVList } from "@/lib/tmdb-api";
 import type { TVShowDetails } from "@/types/tv";
 
 interface TVSearchProps {
@@ -49,7 +49,9 @@ const TV = ({ initialTV, initialSearch, initialPage }: TVSearchProps) => {
     setLoading(true);
     setError(null);
     try {
-      const fetchedTV = await getTVList(search, page);
+      const fetchedTV = search
+        ? await getTVList(search, page)
+        : await getDiscoverTV(page);
       setTV((prevTV) => (page === 1 ? fetchedTV : [...prevTV, ...fetchedTV]));
       setHasMore(fetchedTV.length > 0);
     } catch (err) {
@@ -141,7 +143,7 @@ const TV = ({ initialTV, initialSearch, initialPage }: TVSearchProps) => {
         </p>
       )}
 
-      {hasMore && !loading && (
+      {hasMore && !loading && !error && (
         <Button className="mt-4 block w-full" onClick={handleLoadMore}>
           Load More
         </Button>
