@@ -58,7 +58,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
       </CardHeader>
       <CardContent className="flex-1 p-4">
         {movie.poster_path && (
-          <div className="relative mb-4 h-48 w-full">
+          <div className="relative mb-4 h-[40rem] w-full">
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={`${movie.title} cover image`}

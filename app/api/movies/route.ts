@@ -14,7 +14,7 @@ export async function GET(request: Request) {
     if (movieId) {
       url = `${TMDB_API}movie/${movieId}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`;
     } else if (query) {
-      url = `${TMDB_API}search/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&query=${query}&page=${page}`;
+      url = `${TMDB_API}search/movie?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&query=${query}&page=${page}?language=en-US&include_adult=false&sort_by=vote_count.desc`;
     }
 
     console.log(`Fetching data from: ${url}`);

@@ -71,7 +71,7 @@ const VideoGameCard: React.FC<GameCardProps> = ({ game }) => {
           )}
         </div>
         {game.background_image && (
-          <div className="relative mb-4 h-48 w-full">
+          <div className="relative mb-4 h-60 w-full">
             <Image
               src={game.background_image}
               alt={`${game.name} cover image`}

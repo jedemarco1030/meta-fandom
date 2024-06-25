@@ -58,7 +58,7 @@ const TVCard: React.FC<TVCardProps> = ({ tv }) => {
       </CardHeader>
       <CardContent className="flex-1 p-4">
         {tv.poster_path && (
-          <div className="relative mb-4 h-48 w-full">
+          <div className="relative mb-4 h-[40rem] w-full">
             <Image
               src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`}
               alt={`${tv.name} cover image`}
