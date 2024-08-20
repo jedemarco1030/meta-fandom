@@ -49,7 +49,7 @@ export async function getMovieDetails(movieId: string): Promise<Movie | null> {
 
 export async function getDiscoverMovies(page: number): Promise<Movie[]> {
   try {
-    const url = `${BASE_URL}/api/movies?page=${page}?language=en-US&include_adult=false&sort_by=vote_count.desc`;
+    const url = `${BASE_URL}/api/movies?page=${page}&language=en-US&include_adult=false&sort_by=vote_count.desc`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -60,8 +60,9 @@ export async function getDiscoverMovies(page: number): Promise<Movie[]> {
     if (contentType && contentType.includes("application/json")) {
       const data: MovieListResponse = await response.json();
       return data.results || [];
+    } else {
+      throw new Error("Invalid response format");
     }
-    throw new Error("Invalid response format");
   } catch (error) {
     console.error("Error fetching discovered movies list:", error);
     return [];
@@ -94,7 +95,7 @@ export async function getTVList(
 
 export async function getDiscoverTV(page: number): Promise<TVShowDetails[]> {
   try {
-    const url = `${BASE_URL}/api/tv?page=${page}?language=en-US&include_adult=false&sort_by=vote_count.desc`;
+    const url = `${BASE_URL}/api/tv?page=${page}&language=en-US&include_adult=false&sort_by=vote_count.desc`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -105,8 +106,9 @@ export async function getDiscoverTV(page: number): Promise<TVShowDetails[]> {
     if (contentType && contentType.includes("application/json")) {
       const data: TVListResponse = await response.json();
       return data.results || [];
+    } else {
+      throw new Error("Invalid response format");
     }
-    throw new Error("Invalid response format");
   } catch (error) {
     console.error("Error fetching discovered TV list:", error);
     return [];
