@@ -58,11 +58,14 @@ const TVCard: React.FC<TVCardProps> = ({ tv }) => {
       </CardHeader>
       <CardContent className="flex-1 p-4">
         {tv.poster_path && (
-          <div className="relative mb-4 h-[40rem] w-full">
+          <div className="relative mb-4 h-[25rem] w-full">
             <Image
               src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`}
               alt={`${tv.name} cover image`}
               fill
+              style={{
+                objectFit: "contain",
+              }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="rounded object-cover"
               priority
