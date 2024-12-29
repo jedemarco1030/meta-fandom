@@ -93,7 +93,7 @@ const PokemonDetails = ({ pokemonName }: { pokemonName: string }) => {
 
   if (!pokemon) return null;
 
-  const typeColors: { [key in string]: string } = {
+  const typeColors: Record<string, string> = {
     normal: "bg-[#A8A77A]",
     fire: "bg-[#EE8130]",
     water: "bg-[#6390F0]",

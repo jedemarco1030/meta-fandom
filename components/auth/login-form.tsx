@@ -59,7 +59,7 @@ export const LoginForm = () => {
 
           if (data?.success) {
             form.reset();
-            // @ts-ignore
+            // @ts-expect-error - TS2345: Argument of type string | true is not assignable to parameter of type SetStateAction<string | undefined
             setSuccess(data.success);
           }
 

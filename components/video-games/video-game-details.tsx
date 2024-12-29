@@ -162,30 +162,40 @@ const VideoGameDetails = ({ gameId }: { gameId: string }) => {
                 {videoGame?.rating ?? "N/A"} / 5.00
               </span>
             </div>
-            {ratings.map((rating: any) => {
-              const percentage = rating.percent;
-              return (
-                <div className="mb-4 flex w-full items-center" key={rating.id}>
-                  <h3 className="w-1/3 text-lg">
-                    {rating.title.charAt(0).toUpperCase() +
-                      rating.title.slice(1)}
-                  </h3>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger className="w-2/3">
-                        <Progress
-                          className="w-full bg-background"
-                          value={percentage}
-                        />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <span>{formatNumber(rating.count)}</span>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-              );
-            })}
+            {ratings.map(
+              (rating: {
+                percent: never;
+                id: React.Key | null | undefined;
+                title: string;
+                count: number;
+              }) => {
+                const percentage = rating.percent;
+                return (
+                  <div
+                    className="mb-4 flex w-full items-center"
+                    key={rating.id}
+                  >
+                    <h3 className="w-1/3 text-lg">
+                      {rating.title.charAt(0).toUpperCase() +
+                        rating.title.slice(1)}
+                    </h3>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger className="w-2/3">
+                          <Progress
+                            className="w-full bg-background"
+                            value={percentage}
+                          />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <span>{formatNumber(rating.count)}</span>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                );
+              },
+            )}
           </div>
         </CardFooter>
       </Card>
