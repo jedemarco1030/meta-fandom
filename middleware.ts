@@ -27,7 +27,9 @@ export default auth((req) => {
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-  const isPublicApiRoute = publicApiRoutes.some((route) => nextUrl.pathname.startsWith(route));
+  const isPublicApiRoute = publicApiRoutes.some((route) =>
+    nextUrl.pathname === route || nextUrl.pathname.startsWith(`${route}/`)
+  );
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute || isPublicApiRoute) {
@@ -60,6 +62,6 @@ export const config = {
   matcher: [
     "/((?!.+\\.[\\w]+$|_next).*)",
     "/",
-    "/((?!api/(video-games|pokemon|tv|movies|books)).*)",
+    "/api/:path*",
   ],
 };
