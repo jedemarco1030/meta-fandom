@@ -1,14 +1,24 @@
 import NextAuth from "next-auth";
-
 import authConfig from "@/auth.config";
 import {
   apiAuthPrefix,
   authRoutes,
-  DEFAULT_LOGIN_REDIRECT,
   publicRoutes,
+  DEFAULT_LOGIN_REDIRECT,
 } from "@/routes";
 
 const { auth } = NextAuth(authConfig);
+
+/**
+ * Public API routes that do not require authentication
+ */
+const publicApiRoutes: string[] = [
+  "/api/video-games",
+  "/api/pokemon",
+  "/api/tv",
+  "/api/movies",
+  "/api/books"
+];
 
 // @ts-ignore
 export default auth((req) => {
@@ -17,9 +27,10 @@ export default auth((req) => {
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  const isPublicApiRoute = publicApiRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
-  if (isApiAuthRoute) {
+  if (isApiAuthRoute || isPublicApiRoute) {
     return null;
   }
 
@@ -37,9 +48,8 @@ export default auth((req) => {
     }
 
     const encodedCallbackUrl = encodeURIComponent(callbackUrl);
-
     return Response.redirect(
-      new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl),
+      new URL(`/auth/login?callbackUrl=${encodedCallbackUrl}`, nextUrl)
     );
   }
 
