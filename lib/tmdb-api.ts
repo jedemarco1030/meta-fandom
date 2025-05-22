@@ -1,14 +1,12 @@
 import type { Movie, MovieListResponse } from "@/types/movies";
 import type { TVListResponse, TVShowDetails } from "@/types/tv";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
-
 export async function getMoviesList(
   query: string,
   page: number,
 ): Promise<Movie[]> {
   try {
-    const url = `${BASE_URL}/api/movies?query=${query}&page=${page}`;
+    const url = `/api/movies?query=${query}&page=${page}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -29,7 +27,7 @@ export async function getMoviesList(
 
 export async function getMovieDetails(movieId: string): Promise<Movie | null> {
   try {
-    const url = `${BASE_URL}/api/movies?movie_id=${movieId}`;
+    const url = `/api/movies?movie_id=${movieId}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -49,7 +47,7 @@ export async function getMovieDetails(movieId: string): Promise<Movie | null> {
 
 export async function getDiscoverMovies(page: number): Promise<Movie[]> {
   try {
-    const url = `${BASE_URL}/api/movies?page=${page}&language=en-US&include_adult=false&sort_by=vote_count.desc`;
+    const url = `/api/movies?page=${page}&language=en-US&include_adult=false&sort_by=vote_count.desc`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -74,7 +72,7 @@ export async function getTVList(
   page: number,
 ): Promise<TVShowDetails[]> {
   try {
-    const url = `${BASE_URL}/api/tv?query=${query}&page=${page}`;
+    const url = `/api/tv?query=${query}&page=${page}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -95,7 +93,7 @@ export async function getTVList(
 
 export async function getDiscoverTV(page: number): Promise<TVShowDetails[]> {
   try {
-    const url = `${BASE_URL}/api/tv?page=${page}&language=en-US&include_adult=false&sort_by=vote_count.desc`;
+    const url = `/api/tv?page=${page}&language=en-US&include_adult=false&sort_by=vote_count.desc`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -119,7 +117,7 @@ export async function getTVDetails(
   seriesId: string,
 ): Promise<TVShowDetails | null> {
   try {
-    const url = `${BASE_URL}/api/tv?series_id=${seriesId}`;
+    const url = `/api/tv?series_id=${seriesId}`;
     const response = await fetch(url);
 
     if (!response.ok) {

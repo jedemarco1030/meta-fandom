@@ -1,7 +1,5 @@
 import type { Book, BookSearchResponse } from "@/types/books";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
-
 export async function getBookList(
   query: string,
   limit: number,
@@ -9,7 +7,7 @@ export async function getBookList(
   sort = "relevance",
 ): Promise<Book[]> {
   try {
-    const url = `${BASE_URL}/api/books?query=${query}&limit=${limit}&offset=${offset}&sort=${sort}`;
+    const url = `/api/books?query=${query}&limit=${limit}&offset=${offset}&sort=${sort}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -30,7 +28,7 @@ export async function getBookList(
 
 export async function getBookDetails(workKey: string): Promise<Book | null> {
   try {
-    const url = `${BASE_URL}/api/books?work_key=${workKey}`;
+    const url = `/api/books?work_key=${workKey}`;
     const response = await fetch(url);
 
     if (!response.ok) {

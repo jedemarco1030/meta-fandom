@@ -4,14 +4,12 @@ import type {
   PokemonListResult,
 } from "@/types/pokemon";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "";
-
 export async function getPokemonList(
   limit: number,
   offset: number,
 ): Promise<PokemonListResult[]> {
   try {
-    const url = `${BASE_URL}/api/pokemon?limit=${limit}&offset=${offset}`;
+    const url = `/api/pokemon?limit=${limit}&offset=${offset}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -34,7 +32,7 @@ export async function getPokemonDetails(
   name: string,
 ): Promise<PokemonListDetails | null> {
   try {
-    const url = `${BASE_URL}/api/pokemon?name=${name}`;
+    const url = `/api/pokemon?name=${name}`;
     const response = await fetch(url);
 
     if (!response.ok) {
