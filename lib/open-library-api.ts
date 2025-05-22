@@ -1,5 +1,10 @@
 import type { Book, BookSearchResponse } from "@/types/books";
 
+const getBaseUrl = () =>
+  typeof window !== "undefined"
+    ? ""
+    : process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL;
+
 export async function getBookList(
   query: string,
   limit: number,
@@ -7,7 +12,8 @@ export async function getBookList(
   sort = "relevance",
 ): Promise<Book[]> {
   try {
-    const url = `/api/books?query=${query}&limit=${limit}&offset=${offset}&sort=${sort}`;
+    const baseUrl = getBaseUrl();
+    const url = `${baseUrl}/api/books?query=${query}&limit=${limit}&offset=${offset}&sort=${sort}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -15,7 +21,7 @@ export async function getBookList(
     }
 
     const contentType = response.headers.get("content-type");
-    if (contentType && contentType.includes("application/json")) {
+    if (contentType?.includes("application/json")) {
       const data: BookSearchResponse = await response.json();
       return data.docs || [];
     }
@@ -28,7 +34,8 @@ export async function getBookList(
 
 export async function getBookDetails(workKey: string): Promise<Book | null> {
   try {
-    const url = `/api/books?work_key=${workKey}`;
+    const baseUrl = getBaseUrl();
+    const url = `${baseUrl}/api/books?work_key=${workKey}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -36,7 +43,7 @@ export async function getBookDetails(workKey: string): Promise<Book | null> {
     }
 
     const contentType = response.headers.get("content-type");
-    if (contentType && contentType.includes("application/json")) {
+    if (contentType?.includes("application/json")) {
       return await response.json();
     }
     throw new Error("Invalid response format");

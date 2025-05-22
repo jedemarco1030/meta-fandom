@@ -4,12 +4,18 @@ import type {
   VideoGameListResponse,
 } from "@/types/video-games";
 
+const getBaseUrl = () =>
+  typeof window !== "undefined"
+    ? ""
+    : process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL;
+
 export async function getVideoGamesList(
   search: string,
   page: number,
 ): Promise<Game[]> {
   try {
-    const url = `/api/video-games?search=${search}&page=${page}`;
+    const baseUrl = getBaseUrl();
+    const url = `${baseUrl}/api/video-games?search=${search}&page=${page}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -17,7 +23,7 @@ export async function getVideoGamesList(
     }
 
     const contentType = response.headers.get("content-type");
-    if (contentType && contentType.includes("application/json")) {
+    if (contentType?.includes("application/json")) {
       const data: VideoGameListResponse = await response.json();
       return data.results || [];
     }
@@ -32,7 +38,8 @@ export async function getVideoGameDetails(
   id: string,
 ): Promise<GameDetail | null> {
   try {
-    const url = `/api/video-games?id=${id}`;
+    const baseUrl = getBaseUrl();
+    const url = `${baseUrl}/api/video-games?id=${id}`;
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -40,7 +47,7 @@ export async function getVideoGameDetails(
     }
 
     const contentType = response.headers.get("content-type");
-    if (contentType && contentType.includes("application/json")) {
+    if (contentType?.includes("application/json")) {
       return await response.json();
     }
     throw new Error("Invalid response format");
